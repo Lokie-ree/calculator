@@ -21,12 +21,13 @@ body {
 }
 
 .calculator {
+    background-color: #0c0b0b;
     border: 5px solid #302f31;
-    border-radius: 15px;
+    border-radius: 20px;
+    padding: 10px;
     overflow: hidden;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
 }
@@ -40,23 +41,25 @@ body {
     color: #fff;
     font-size: 2em;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
     box-sizing: border-box;
 }
 
 .buttons-container {
     flex-grow: 1;
+    padding: 10px;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
+    gap: 8px;
 }
 
 .btn {
     background-color: #ed5c1e;
     border: 2px solid #302f31;
+    border-radius: 10px;
     color: #fff;
     font-size: 1.5em;
     padding: 20px;
@@ -67,6 +70,11 @@ body {
 
 .btn.operator {
     background-color: rgb(23, 23, 247);
+    color: #fff;
+}
+
+.btn.function {
+    background-color: rgb(69, 68, 68);
     color: #fff;
 }
 
