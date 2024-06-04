@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.poetsen-one-regular {
+    font-family: "Poetsen One", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    height: 100vh;
+    background-color: rgb(111, 109, 109);
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.calculator {
+    border: 5px solid #302f31;
+    border-radius: 15px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.display-container {
+    background-color: rgb(182, 174, 174);
+    height: 80px;
+}
+
+.display {
+    color: #fff;
+    font-size: 2em;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.buttons-container {
+    flex-grow: 1;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+}
+
+.btn {
+    background-color: #ed5c1e;
+    border: 2px solid #302f31;
+    color: #fff;
+    font-size: 1.5em;
+    padding: 20px;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn.operator {
+    background-color: rgb(23, 23, 247);
+    color: #fff;
+}
+
+.btn#equals {
+    background-color: rgb(69, 68, 68);
+    color: #fff;
+}
+
+.btn#clear {
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .display {
+        font-size: 1.5em;
+        padding: 15px;
+    }
+
+    .btn {
+        font-size: 1.2em;
+        padding: 15px;
+    }
+
+    .btn#equals {
+        font-size: 1.5em;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .display {
+        font-size: 1.2em;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 1em;
+        padding: 10px;
+    }
+
+    .btn#equals {
+        font-size: 1.2em;
+        padding: 10px;
+    }
+}
