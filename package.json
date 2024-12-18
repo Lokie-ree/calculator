@@ -9,9 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "mathjs": "^14.0.1",
+    "next": "15.1.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.1.1"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "postcss": "^8",
