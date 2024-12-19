@@ -10,6 +10,8 @@ import {
   calculateResult,
   isValidKey,
   processKey,
+  handleClearAll,
+  handleCalculation as utilityHandleCalculation,
 } from "@/utils/calculatorHelpers";
 import { FaEquals } from "react-icons/fa";
 
@@ -37,29 +39,18 @@ const Calculator = () => {
 
   const handleButtonClick = (value) => {
     if (value === "=") {
-      if (expression.trim() === "") {
-        setResult("0");
-        return;
-      }
-
-      const calculatedResult = calculateResult(expression);
-      setResult(calculatedResult);
-      setExpression(calculatedResult.toString());
+      processKey("Enter", expression, setExpression, setResult);
     } else {
       setExpression((prev) => appendToExpression(prev, value));
     }
   };
 
-  const handleCalculation = () => {
-    const calculationResult = calculateResult(expression);
-    setResult(calculationResult);
+  const handleClear = () => {
+    handleClearAll(setExpression, setResult);
   };
 
-  const handleClear = () => {
-    const { expression: resetExpression, result: resetResult } =
-      resetCalculator();
-    setExpression(resetExpression);
-    setResult(resetResult);
+  const handleCalculation = () => {
+    utilityHandleCalculation(expression, setExpression, setResult);
   };
 
   return (
