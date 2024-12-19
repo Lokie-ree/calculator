@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import Display from "./Display";
 import Button from "./Button";
@@ -9,6 +11,7 @@ import {
   isValidKey,
   processKey,
 } from "@/utils/calculatorHelpers";
+import { FaEquals } from "react-icons/fa";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
@@ -59,8 +62,6 @@ const Calculator = () => {
     setResult(resetResult);
   };
 
-  console.log(`Expression: ${expression} and result: ${result}`);
-
   return (
     <div className="flex flex-col bg-gradient-to-bl from-black via-gray-800 to-black w-[400px] h-fit rounded-xl p-6 gap-6 shadow-lg shadow-black/50">
       <Display expression={expression} result={result} />
@@ -84,9 +85,9 @@ const Calculator = () => {
         </button>
         <button
           onClick={handleCalculation}
-          className="w-1/2 hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 rounded-lg h-12 text-white"
+          className="w-1/2 flex items-center justify-center hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-green-600 via-green-500 to-green-600 rounded-lg h-12 text-white"
         >
-          =
+          <FaEquals />
         </button>
       </div>
     </div>

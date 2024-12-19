@@ -26,7 +26,6 @@ export const processKey = (key, expression, setExpression, setResult) => {
   if (key === "Enter") {
     if (expression.trim() === "") {
       setResult("0");
-      return;
     }
 
     const calculatedResult = calculateResult(expression);

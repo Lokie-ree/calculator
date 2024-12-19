@@ -1,4 +1,6 @@
-import { FaEquals, FaPlus, FaMinus, FaTimes, FaDivide } from "react-icons/fa";
+import { FaPlus, FaMinus, FaTimes, FaDivide } from "react-icons/fa";
+
+import { FaPlusMinus } from "react-icons/fa6";
 
 export const BUTTONS = [
   { label: "7", type: "number" },
@@ -13,8 +15,8 @@ export const BUTTONS = [
   { label: "2", type: "number" },
   { label: "3", type: "number" },
   { label: "-", type: "operator", icon: <FaMinus /> },
-  { label: "0", type: "number" },
   { label: ".", type: "number" },
-  { label: "=", type: "equals", icon: <FaEquals /> },
+  { label: "0", type: "number" },
+  { label: "+/-", type: "operator", icon: <FaPlusMinus /> },
   { label: "+", type: "operator", icon: <FaPlus /> },
 ];
