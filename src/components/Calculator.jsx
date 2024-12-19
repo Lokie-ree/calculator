@@ -1,19 +1,50 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import Display from "./Display";
 import Button from "./Button";
-import { BUTTONS } from "@/utils/constants";
+import { BUTTONS } from "@/utils/buttons";
 import {
   appendToExpression,
   resetCalculator,
   calculateResult,
-} from "@/utils/functions";
+  isValidKey,
+  processKey,
+} from "@/utils/calculatorHelpers";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState(null);
 
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const { key } = event;
+
+      if (isValidKey(key)) {
+        processKey(key, expression, setExpression, setResult);
+      } else {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [expression]);
+
   const handleButtonClick = (value) => {
-    setExpression((prev) => appendToExpression(prev, value));
+    if (value === "=") {
+      if (expression.trim() === "") {
+        setResult("0");
+        return;
+      }
+
+      const calculatedResult = calculateResult(expression);
+      setResult(calculatedResult);
+      setExpression(calculatedResult.toString());
+    } else {
+      setExpression((prev) => appendToExpression(prev, value));
+    }
   };
 
   const handleCalculation = () => {
@@ -27,6 +58,8 @@ const Calculator = () => {
     setExpression(resetExpression);
     setResult(resetResult);
   };
+
+  console.log(`Expression: ${expression} and result: ${result}`);
 
   return (
     <div className="flex flex-col bg-gradient-to-bl from-black via-gray-800 to-black w-[400px] h-fit rounded-xl p-6 gap-6 shadow-lg shadow-black/50">
