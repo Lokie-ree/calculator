@@ -8,6 +8,7 @@ import {
   resetCalculator,
   calculateResult,
 } from "@/utils/functions";
+import { BUTTONS } from "@/utils/constants";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
