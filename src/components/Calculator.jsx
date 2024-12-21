@@ -1,32 +1,56 @@
-import React, { useState } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import Display from "./Display";
 import Button from "./Button";
-import { BUTTONS } from "@/utils/constants";
+import { BUTTONS } from "@/utils/buttons";
 import {
   appendToExpression,
   resetCalculator,
   calculateResult,
-} from "@/utils/functions";
+  isValidKey,
+  processKey,
+  handleClearAll,
+  handleCalculation as utilityHandleCalculation,
+} from "@/utils/calculatorHelpers";
 import { FaEquals } from "react-icons/fa";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState(null);
 
-  const handleButtonClick = (value) => {
-    setExpression((prev) => appendToExpression(prev, value));
-  };
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      const { key } = event;
 
-  const handleCalculation = () => {
-    const calculationResult = calculateResult(expression);
-    setResult(calculationResult);
+      if (isValidKey(key)) {
+        processKey(key, expression, setExpression, setResult);
+      } else {
+        event.preventDefault();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [expression]);
+
+  const handleButtonClick = (value) => {
+    if (value === "=") {
+      processKey("Enter", expression, setExpression, setResult);
+    } else {
+      setExpression((prev) => appendToExpression(prev, value));
+    }
   };
 
   const handleClear = () => {
-    const { expression: resetExpression, result: resetResult } =
-      resetCalculator();
-    setExpression(resetExpression);
-    setResult(resetResult);
+    handleClearAll(setExpression, setResult);
+  };
+
+  const handleCalculation = () => {
+    utilityHandleCalculation(expression, setExpression, setResult);
   };
 
   return (
@@ -52,7 +76,7 @@ const Calculator = () => {
         </button>
         <button
           onClick={handleCalculation}
-          className="w-1/2 hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 rounded-lg h-12 flex justify-center items-center text-white"
+          className="w-1/2 hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 rounded-lg h-12 text-white"
         >
           <FaEquals />
         </button>
