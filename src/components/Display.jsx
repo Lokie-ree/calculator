@@ -10,3 +10,4 @@ const Display = ({ expression, result }) => {
 };
 
 export default Display;
+5;

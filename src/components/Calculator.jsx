@@ -6,8 +6,6 @@ import Button from "./Button";
 import { BUTTONS } from "@/utils/buttons";
 import {
   appendToExpression,
-  resetCalculator,
-  calculateResult,
   isValidKey,
   processKey,
   handleClearAll,
@@ -76,7 +74,7 @@ const Calculator = () => {
         </button>
         <button
           onClick={handleCalculation}
-          className="w-1/2 hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 rounded-lg h-12 text-white"
+          className="w-1/2 hover:scale-105 flex justify-center items-center active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-green-600 via-green-500 to-green-600 rounded-lg h-12 text-white"
         >
           <FaEquals />
         </button>

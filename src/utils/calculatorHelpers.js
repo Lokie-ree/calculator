@@ -27,11 +27,15 @@ export const processKey = (key, expression, setExpression, setResult) => {
     case "Enter":
       const calculatedResult = calculateResult(expression);
       setResult(calculatedResult);
-      setExpression("");
+      setExpression(expression);
       break;
 
     case "Backspace":
       setExpression((prev) => (prev.length > 0 ? prev.slice(0, -1) : ""));
+      break;
+
+    case "+/-":
+      setExpression((prev) => toggleSign(prev));
       break;
 
     default:
@@ -43,7 +47,7 @@ export const processKey = (key, expression, setExpression, setResult) => {
 export const handleCalculation = (expression, setExpression, setResult) => {
   const calculatedResult = calculateResult(expression);
   setResult(calculatedResult);
-  setExpression("");
+  setExpression(expression);
 };
 
 export const handleClearAll = (setExpression, setResult) => {
@@ -53,10 +57,30 @@ export const handleClearAll = (setExpression, setResult) => {
 };
 
 export const appendToExpression = (expression, value) => {
+  if (value === "+/-") {
+    return toggleSign(expression);
+  }
+
   if (isValidKey(value)) {
     return expression + value;
   }
   return expression;
+};
+
+export const toggleSign = (expression) => {
+  try {
+    const lastNumberMatch = /(-?\d+\.?\d*)$/.exec(expression);
+    if (!lastNumberMatch) return expression;
+
+    const [lastNumber] = lastNumberMatch;
+    const toggled = lastNumber.startsWith("-")
+      ? lastNumber.slice(1)
+      : `-${lastNumber}`;
+
+    return expression.slice(0, -lastNumber.length) + toggled;
+  } catch (error) {
+    return expression;
+  }
 };
 
 export const calculateResult = (expression) => {
