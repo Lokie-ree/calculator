@@ -7,6 +7,7 @@ import {
   resetCalculator,
   calculateResult,
 } from "@/utils/functions";
+import { FaEquals } from "react-icons/fa";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
@@ -51,9 +52,9 @@ const Calculator = () => {
         </button>
         <button
           onClick={handleCalculation}
-          className="w-1/2 hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 rounded-lg h-12 text-white"
+          className="w-1/2 hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-blue-600 via-blue-500 to-blue-600 rounded-lg h-12 flex justify-center items-center text-white"
         >
-          =
+          <FaEquals />
         </button>
       </div>
     </div>
