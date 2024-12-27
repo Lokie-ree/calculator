@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "mathjs": "^14.0.1",
     "next": "15.1.1",
     "react": "^19.0.0",

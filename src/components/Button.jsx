@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-const Button = ({ label, type, icon, onClick }) => {
+const Button = memo(({ label, type, icon, onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -13,6 +13,6 @@ const Button = ({ label, type, icon, onClick }) => {
       {icon || label}
     </button>
   );
-};
+});
 
 export default Button;

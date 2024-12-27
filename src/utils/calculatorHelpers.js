@@ -28,7 +28,7 @@ export const processKey = (key, expression, setExpression, setResult) => {
       const calculatedResult = calculateResult(expression);
       setResult(calculatedResult);
       setExpression(expression);
-      break;
+      brak;
 
     case "Backspace":
       setExpression((prev) => (prev.length > 0 ? prev.slice(0, -1) : ""));
@@ -83,15 +83,27 @@ export const toggleSign = (expression) => {
   }
 };
 
+let cache = {};
+
 export const calculateResult = (expression) => {
+  if (cache[expression]) {
+    return cache[expression];
+  }
+
   try {
     if (expression.includes("/0")) {
       return "Error";
     }
-    return evaluate(expression).toString();
+    const result = evaluate(expression).toString();
+    cache[expression] = result;
+    return result;
   } catch (error) {
     return "Error";
   }
+};
+
+export const clearCache = () => {
+  cache = {};
 };
 
 export const resetCalculator = () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Display from "./Display";
 import Button from "./Button";
 import { BUTTONS } from "@/utils/buttons";
@@ -8,14 +8,23 @@ import {
   appendToExpression,
   isValidKey,
   processKey,
+  clearCache,
   handleClearAll,
   handleCalculation as utilityHandleCalculation,
 } from "@/utils/calculatorHelpers";
 import { FaEquals } from "react-icons/fa";
+import debounce from "lodash.debounce";
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
   const [result, setResult] = useState(null);
+
+  const debouncedAppendToExpression = useCallback(
+    debounce((value) => {
+      setExpression((prev) => appendToExpression(prev, value));
+    }, 200),
+    []
+  );
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -39,17 +48,24 @@ const Calculator = () => {
     if (value === "=") {
       processKey("Enter", expression, setExpression, setResult);
     } else {
-      setExpression((prev) => appendToExpression(prev, value));
+      debouncedAppendToExpression(value);
     }
   };
 
   const handleClear = () => {
     handleClearAll(setExpression, setResult);
+    clearCache();
   };
 
   const handleCalculation = () => {
     utilityHandleCalculation(expression, setExpression, setResult);
   };
+
+  useEffect(() => {
+    return () => {
+      debouncedAppendToExpression.cancel();
+    };
+  }, [debouncedAppendToExpression]);
 
   return (
     <div className="flex flex-col bg-gradient-to-bl from-black via-gray-800 to-black w-[400px] h-fit rounded-xl p-6 gap-6 shadow-lg shadow-black/50">
