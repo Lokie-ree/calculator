@@ -16,6 +16,9 @@ export const validKeys = [
   "-",
   "*",
   "/",
+  "(",
+  ")",
+  "^",
   "Enter",
   "Backspace",
 ];
@@ -108,4 +111,57 @@ export const clearCache = () => {
 
 export const resetCalculator = () => {
   return { expression: "", result: null };
+};
+
+export const handleClearEntry = (expression) => {
+  return expression.trim().slice(0, -1);
+};
+
+export const handlePercentage = (expression) => {
+  try {
+    const lastNumberMatch = /(-?\d+\.?\d*)$/.exec(expression);
+    if (!lastNumberMatch) return expression;
+
+    const [lastNumber] = lastNumberMatch;
+    const percentage = (parseFloat(lastNumber) / 100).toString();
+    return expression.slice(0, -lastNumber.length) + percentage;
+  } catch (error) {
+    return expression;
+  }
+};
+
+export const handleTrigonometricFunction = (func, expression) => {
+  try {
+    const lastNumberMatch = /(-?\d+\.?\d*)$/.exec(expression);
+    if (!lastNumberMatch) return expression;
+
+    const [lastNumber] = lastNumberMatch;
+    const radians = (Math.PI / 180) * parseFloat(lastNumber); // Convert to radians
+    const result =
+      func === "sin"
+        ? Math.sin(radians)
+        : func === "cos"
+        ? Math.cos(radians)
+        : Math.tan(radians);
+
+    return expression.slice(0, -lastNumber.length) + result.toFixed(4);
+  } catch (error) {
+    return "Error";
+  }
+};
+
+export const handleLogarithmicFunction = (func, expression) => {
+  try {
+    const lastNumberMatch = /(-?\d+\.?\d*)$/.exec(expression);
+    if (!lastNumberMatch) return expression;
+
+    const [lastNumber] = lastNumberMatch;
+    const value = parseFloat(lastNumber);
+    const result =
+      func === "log" ? Math.log10(value) : func === "ln" ? Math.log(value) : 0;
+
+    return expression.slice(0, -lastNumber.length) + result.toFixed(4);
+  } catch (error) {
+    return "Error";
+  }
 };

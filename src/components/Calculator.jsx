@@ -11,6 +11,10 @@ import {
   clearCache,
   handleClearAll,
   handleCalculation as utilityHandleCalculation,
+  handleClearEntry,
+  handlePercentage,
+  handleTrigonometricFunction,
+  handleLogarithmicFunction,
 } from "@/utils/calculatorHelpers";
 import { FaEquals } from "react-icons/fa";
 import debounce from "lodash.debounce";
@@ -47,6 +51,14 @@ const Calculator = () => {
   const handleButtonClick = (value) => {
     if (value === "=") {
       processKey("Enter", expression, setExpression, setResult);
+    } else if (value === "CE") {
+      setExpression((prev) => handleClearEntry(prev));
+    } else if (value === "%") {
+      setExpression((prev) => handlePercentage(prev));
+    } else if (["sin", "cos", "tan"].includes(value)) {
+      setExpression((prev) => handleTrigonometricFunction(value, prev));
+    } else if (["log", "ln"].includes(value)) {
+      setExpression((prev) => handleLogarithmicFunction(value, prev));
     } else {
       debouncedAppendToExpression(value);
     }
@@ -68,9 +80,9 @@ const Calculator = () => {
   }, [debouncedAppendToExpression]);
 
   return (
-    <div className="flex flex-col bg-gradient-to-bl from-black via-gray-800 to-black w-[400px] h-fit rounded-xl p-6 gap-6 shadow-lg shadow-black/50">
+    <div className="flex flex-col bg-gradient-to-bl from-black via-gray-800 to-black w-[350px] h-fit rounded-xl p-6 gap-6 shadow-lg shadow-black/50">
       <Display expression={expression} result={result} />
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-5 gap-2">
         {BUTTONS.map((button) => (
           <Button
             key={button.label}
@@ -86,7 +98,7 @@ const Calculator = () => {
           onClick={handleClear}
           className="w-1/2 hover:scale-105 active:scale-100 hover:bg-gradient-to-br bg-gradient-to-b from-red-600 via-red-500 to-red-600 rounded-lg h-12 text-white"
         >
-          Clear
+          AC
         </button>
         <button
           onClick={handleCalculation}
